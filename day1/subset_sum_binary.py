@@ -22,7 +22,9 @@ def subset_sum_binary(targetvalue, candidates, k):
 # It's inefficient, but the candidate list is reasonably small so fuck it. 
 # Let's brute force this shit and see how bad it is.
 def subset_sum_naive(targetvalue, candidates, k):
-    pass
+    for rec in crossproduct(candidates, repeat=k):
+        if sum(rec) == targetvalue:
+            return rec
 
 @click.command()
 @click.argument("infile", default="input.txt", type=click.File("rb"))
