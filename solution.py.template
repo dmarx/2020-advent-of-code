@@ -1,0 +1,13 @@
+import click
+
+def dothething(infile):
+    pass
+
+@click.command()
+@click.argument("infile", default="input.txt", type=click.File("rb"))
+def cli(infile):
+    outv = dothething(infile)
+    click.echo(outv)
+
+if __name__ =='__main__':
+    cli()
