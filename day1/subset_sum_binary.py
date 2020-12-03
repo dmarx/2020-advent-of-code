@@ -1,5 +1,11 @@
 import click
-import numpy as np
+from itertools import accumulate
+import operator
+
+def product(*args):
+    for v in accumulate(*args, func=operator.mul):
+        continue
+    return v
 
 def subset_sum_binary(targetvalue, candidates):
     complements = []
@@ -22,7 +28,9 @@ def cli(infile, targetvalue, k):
     if k != 2:
         raise NotImplementedError
     outv =  f(targetvalue, candidates)    
-    click.echo(np.prod(outv))
+    #click.echo(np.prod(outv))
+    click.echo(product(outv))
+    click.echo(outv)
     
     
 if __name__ =='__main__':
