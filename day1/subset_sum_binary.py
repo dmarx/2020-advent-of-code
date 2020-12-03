@@ -34,8 +34,6 @@ def cli(infile, targetvalue, k):
     f = subset_sum_naive
     if k == 2:
         f = subset_sum_binary
-    #if k != 2:
-    #    raise NotImplementedError
     outv =  f(targetvalue, candidates, k)    
     click.echo(product(outv))
     click.echo(outv)
