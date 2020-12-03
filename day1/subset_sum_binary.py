@@ -1,5 +1,6 @@
 import click
 from itertools import accumulate
+from itertools import product as crossproduct
 import operator
 
 def product(*args):
@@ -7,7 +8,8 @@ def product(*args):
         continue
     return v
 
-def subset_sum_binary(targetvalue, candidates):
+def subset_sum_binary(targetvalue, candidates, k):
+    assert k==2
     complements = []
     for i, v in enumerate(candidates):
         c = targetvalue - v
@@ -17,6 +19,11 @@ def subset_sum_binary(targetvalue, candidates):
             complements.append(c)
     raise Exception("No solution found")
 
+# It's inefficient, but the candidate list is reasonably small so fuck it. 
+# Let's brute force this shit and see how bad it is.
+def subset_sum_naive(targetvalue, candidates, k):
+    pass
+
 @click.command()
 @click.argument("infile", default="input.txt", type=click.File("rb"))
 @click.option("--targetvalue", default=2020, help="What the output values should sum to.")
@@ -24,11 +31,12 @@ def subset_sum_binary(targetvalue, candidates):
 def cli(infile, targetvalue, k):
     candidates = [int(line.strip()) for line in infile]
     
-    f = subset_sum_binary
-    if k != 2:
-        raise NotImplementedError
-    outv =  f(targetvalue, candidates)    
-    #click.echo(np.prod(outv))
+    f = subset_sum_naive
+    if k == 2:
+        f = subset_sum_binary
+    #if k != 2:
+    #    raise NotImplementedError
+    outv =  f(targetvalue, candidates, k)    
     click.echo(product(outv))
     click.echo(outv)
     
