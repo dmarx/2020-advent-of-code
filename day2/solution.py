@@ -9,19 +9,13 @@ def parse(line):
     return nmin, nmax, reqd_string, pwd
     
 
-def validate(line):
+def validate_part1(line):
     nmin, nmax, reqd_string, pwd = parse(line)
-    #pat = f".*{reqd_string}{{{nmin},{nmax}}}.*" # 357, too low
-    #pat = f"{reqd_string}{{{nmin},{nmax}}}" # 190, even lower
-    # return re.match(pat, pwd)
-    
-    # Doesn't have to be sequential, just a count
-    # currently, reqd_string is just a single character. 
-    # don't need to over engineer
     tgts = [v for v in pwd if v == reqd_string]
     return nmin <= len(tgts) <= nmax
     
-    
+def validate(line):
+    return False
 
 @click.command()
 @click.argument("infile", default="input.txt", type=click.File("rb"))
