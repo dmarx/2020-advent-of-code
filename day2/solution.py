@@ -15,6 +15,18 @@ def validate_part1(line):
     return nmin <= len(tgts) <= nmax
     
 def validate(line):
+    nmin, nmax, reqd_string, pwd = parse(line)
+    
+    # assert password is at least long enough to be valid
+    if len(pwd) < nmax:
+        return False
+        
+    # get characters
+    p,q = pwd[nmin-1], pwd[nmax-1]
+    if p==q:
+       return False
+    if (p==reqd_string) | (q==reqd_string):
+        return True
     return False
 
 @click.command()
