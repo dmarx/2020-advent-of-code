@@ -34,7 +34,7 @@ class ToroidalWorld:
         ntrees2 = 0
         pos = init_pos
         #i = 0
-        i=1
+        i=down
         #while pos <= len(self._flat):
         while i < self._matrix.shape[0]:
             #path.append(pos)
@@ -48,14 +48,15 @@ class ToroidalWorld:
             #ntrees += self._flat[pos]
             ntrees2 += self._matrix[i,j]
             pos += step
-            i+=1
+            #i+=1
+            i+=down
             
         #click.echo(("hmm...", ntrees, ntrees2))
         return ntrees2
 
 
 def dothething(infile,
-               init_pos = (0,0),
+               #init_pos = (0,0),
                right = 3,
                down = 1):
     world = ToroidalWorld(infile.read().decode())
@@ -68,12 +69,14 @@ def dothething(infile,
     click.echo(world._matrix)
     click.echo(world._flat)
     
-    return world.ntrees_along_path()
+    return world.ntrees_along_path(right=right, down=down)
 
 @click.command()
 @click.argument("infile", default="input.txt", type=click.File("rb"))
-def cli(infile):
-    outv = dothething(infile)
+@click.option("--right", default=3)
+@click.option("--down", default=1)
+def cli(infile, right, down):
+    outv = dothething(infile, right=right, down=down)
     click.echo(outv)
     
     
